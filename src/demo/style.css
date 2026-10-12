@@ -13,7 +13,7 @@ button, input { font: inherit; }
 button { color: inherit; }
 
 .site-shell {
-  width: min(1500px, 100%);
+  width: min(940px, 100%);
   margin: 0 auto;
   padding: 0 clamp(18px, 3vw, 46px) clamp(22px, 3vw, 44px);
 }
@@ -88,7 +88,7 @@ button { color: inherit; }
 .file-action { display: inline-block; }
 #video-input { position: absolute; width: 1px; height: 1px; opacity: 0; }
 .artwork {
-  width: min(100%, calc((100vh - 154px) * 1.7778));
+  width: min(100%, 852px);
   margin: 0 auto;
 }
 
