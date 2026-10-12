@@ -56,6 +56,6 @@ The verified fast path uses H.264 MP4. Browser fallbacks depend on codecs suppor
 
 The current manual browser verification covers a Chromium-based browser. Other modern browsers are feature-detected but should not be described as fully verified until the same interaction matrix has been run there.
 
-## Credits
+## Credit
 
-The interaction direction was learned from a Claude Artifact shared by [monoradio (@monoradio102)](https://x.com/monoradio102). This repository is an independent implementation written with Codex and does not copy the reference Artifact's source code.
+The interaction was inspired by work shared publicly by [monoradio (@monoradio102)](https://x.com/monoradio102). See [Origin and attribution](ORIGIN_AND_ATTRIBUTION.md) for details.

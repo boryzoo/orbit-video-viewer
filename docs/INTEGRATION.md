@@ -16,7 +16,7 @@ In another project, add a local file dependency:
 ```json
 {
   "dependencies": {
-    "orbit-video-viewer": "file:../path/to/orbit-panel-viewer"
+    "orbit-video-viewer": "file:../path/to/orbit-video-viewer"
   }
 }
 ```

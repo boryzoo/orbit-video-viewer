@@ -1,22 +1,38 @@
 <p align="right"><strong>English</strong> · <a href="README.zh-CN.md">简体中文</a></p>
 
 <p align="center">
-  <img src="recording-comic/output/orbit-comic-demo.gif" alt="A three-panel comic whose main panel changes viewpoint as a drag indicator moves across it" width="720">
+  <a href="https://huggingface.co/spaces/BreadStudio/orbit-video-viewer"><img src="docs/assets/orbit-comic-demo.gif" alt="A comic panel whose viewpoint changes as the user drags" width="720"></a>
 </p>
 
 <h1 align="center">Orbit Video Viewer</h1>
 
-<p align="center"><strong>Turn pre-rendered orbit videos into interactive, drag-controlled views. No 3D models required.</strong></p>
+<p align="center"><strong>Turn an orbit video into a drag-controlled view on the web. No 3D model required.</strong></p>
 
 <p align="center">
-  <a href="#try-the-demo">Try the Demo</a> ·
+  <a href="https://huggingface.co/spaces/BreadStudio/orbit-video-viewer"><strong>Try the Live Demo</strong></a> ·
   <a href="#use-it-with-an-ai-coding-agent">Use the Skill</a> ·
   <a href="#use-the-sdk">Use the SDK</a>
 </p>
 
-Orbit Comic is the included demonstration. The open-source project is the reusable interaction beneath it: load an orbit MP4, let users drag through its viewpoints, read or set the angle, and embed the result in your own product.
+Orbit Video Viewer is a small browser library for interactive product views, game items, characters, exhibits, comics, and other experiences that need controllable viewpoints.
 
-> **Technique credit:** This project studies an interaction technique shared by [monoradio (@monoradio102)](https://x.com/monoradio102) through a Claude Artifact. The code was independently implemented with Codex and does not copy the Artifact's source.
+## Live Demo
+
+Open the public [Orbit Comic demo on Hugging Face Spaces](https://huggingface.co/spaces/BreadStudio/orbit-video-viewer), wait for the artwork to load, then drag horizontally across it.
+
+Use **Change video** to try your own MP4. The selected file is processed inside your browser and is not uploaded by the app.
+
+## How It Works
+
+An orbit video already contains the viewpoints. The viewer maps horizontal dragging to positions in that video, extracts the required frames in the browser, and displays the current frame on a canvas. It does not reconstruct a 3D scene or invent angles that are missing from the source video.
+
+For best results, use an H.264 MP4 with:
+
+- one continuous horizontal orbit and no cuts;
+- stable subject scale and camera height;
+- an ending close to the opening view if seamless wraparound is desired.
+
+Audio is ignored. No preprocessing tool is included in this release.
 
 ## What Can You Build?
 
@@ -33,37 +49,45 @@ Orbit Comic is the included demonstration. The open-source project is the reusab
   </tr>
 </table>
 
-These are inspiration concepts, not bundled applications. The same interaction can also support exhibits, character showcases, education, architecture, and interactive art.
-
-## Get Started
+These images illustrate possible uses; they are not separate applications included in the repository.
 
 ### Use it with an AI coding agent
 
-The [`integrate-orbit-video` Skill](skills/integrate-orbit-video/SKILL.md) teaches an AI coding agent how to add this SDK and your MP4 to an existing web project while preserving that project's design.
+Give a compatible AI coding agent these three things:
 
-The simplest route is to download this repository, open your own project in an AI coding tool, and give the agent three paths: your project, your MP4, and this Skill file. Then ask:
+1. your web project;
+2. your orbit MP4;
+3. [`skills/integrate-orbit-video/SKILL.md`](skills/integrate-orbit-video/SKILL.md).
+
+Then ask:
 
 ```text
 Use the integrate-orbit-video Skill to add my orbit MP4 to this project.
 ```
 
-For repeated use, install the whole `skills/integrate-orbit-video` folder in your tool's Skill directory. Claude Code project Skills use `.claude/skills/integrate-orbit-video/`. Codex-compatible tools can use their local or project Skill directory, or read the included `SKILL.md` directly.
-
-The Skill follows the open `SKILL.md` Agent Skills format described by [OpenAI](https://developers.openai.com/api/docs/guides/tools-skills) and [Claude Code](https://code.claude.com/docs/en/skills). It has been designed for Codex and Claude Code, but actual file discovery and invocation depend on the AI tool and version you use. See the [Skill validation record](docs/SKILL_VALIDATION.md).
+The Skill tells the agent how to integrate the library while preserving the host project's existing design. See the Skill file for its full workflow and requirements.
 
 ### Use the SDK
 
-The npm package has not been published yet. For local use, build this repository and install it as a file dependency:
+The npm package has not been published yet. Clone and build this repository, then install it as a local file dependency:
 
 ```bash
+git clone https://github.com/boryzoo/orbit-video-viewer.git
+cd orbit-video-viewer
 pnpm install
 pnpm build:library
-pnpm add /absolute/path/to/orbit-panel-viewer
+
+# Run this in your own project:
+pnpm add /absolute/path/to/orbit-video-viewer
 ```
+
+Add a container:
 
 ```html
 <div id="orbit-view" tabindex="0"></div>
 ```
+
+Give it a size:
 
 ```css
 #orbit-view {
@@ -71,11 +95,12 @@ pnpm add /absolute/path/to/orbit-panel-viewer
   overflow: hidden;
   cursor: grab;
   touch-action: pan-y;
-  user-select: none;
 }
 
 #orbit-view canvas { display: block; width: 100%; height: 100%; }
 ```
+
+Load a video:
 
 ```ts
 import { OrbitViewer, createMp4Source } from 'orbit-video-viewer';
@@ -85,12 +110,9 @@ if (!element) throw new Error('Missing orbit view.');
 
 const viewer = new OrbitViewer({ element, initialAngle: 0 });
 await viewer.load(createMp4Source('/assets/orbit.mp4'));
-
-viewer.setAngle(90, { animate: true });
-viewer.reset();
 ```
 
-See the [integration guide](docs/INTEGRATION.md), [public API](#public-api), and independent [`basic-integration`](examples/basic-integration) project.
+See the [integration guide](docs/INTEGRATION.md) and independent [`basic-integration`](examples/basic-integration) example for a complete setup.
 
 ## Public API
 
@@ -105,35 +127,16 @@ See the [integration guide](docs/INTEGRATION.md), [public API](#public-api), and
 | `setInteractionEnabled(boolean)` | Enable or disable user input |
 | `destroy()` | Release resources and listeners |
 
-The general `OrbitSource` interface keeps the Viewer separate from decoding. This release implements browser-side MP4 processing only; it does not include a preprocessing tool.
-
-## Source Video
-
-For best results, use an H.264 MP4 with one continuous horizontal orbit, stable subject scale and camera height, no cuts, and an ending close to the opening view when continuous wraparound is desired.
-
-This is controlled viewpoint playback, not real 3D. It cannot reveal missing angles, change geometry, provide collisions, or relight a scene. Audio in the MP4 is ignored.
-
-## Try the Demo
-
-Do not open `index.html` directly. Start the development server:
+## Run the Demo Locally
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-Then open the local address printed by Vite. Use **Change video** to try another MP4. **Reset view** returns to the initial angle of whichever video is currently loaded.
+Open the local address printed by Vite. Do not open `index.html` directly.
 
-## Project Map
-
-```text
-src/core/                   internal motion, frame, cache, and source contracts
-src/library/                public OrbitViewer SDK
-src/demo/                   Orbit Comic presentation
-skills/integrate-orbit-video AI-assisted integration workflow
-examples/basic-integration independent SDK consumer
-public/demo/                bundled Orbit Comic media
-```
+The current release has been manually validated in Chromium. See [browser compatibility](docs/COMPATIBILITY.md) for the current Safari and Firefox status.
 
 ## Documentation
 
@@ -142,12 +145,11 @@ public/demo/                bundled Orbit Comic media
 - [Technical report](docs/TECHNICAL_REPORT.md)
 - [Browser compatibility](docs/COMPATIBILITY.md)
 - [Origin and attribution](docs/ORIGIN_AND_ATTRIBUTION.md)
-- [Validation record](VALIDATION.md)
-- [Release checklist](docs/RELEASE_CHECKLIST.md)
-- [Publishing runbook (Chinese)](docs/PUBLISHING_RUNBOOK.zh-CN.md)
-- [Product and publishing decisions (Chinese)](docs/PROJECT_AND_PUBLISHING.zh-CN.md)
-- [Hugging Face Space README template](README.huggingface.md)
+
+## Attribution
+
+The interaction was inspired by work shared by [monoradio (@monoradio102)](https://x.com/monoradio102). See [Origin and attribution](docs/ORIGIN_AND_ATTRIBUTION.md) for details.
 
 ## License
 
-The Library, Demo source, and Skill are released under the [MIT License](LICENSE). Demo and README media have separate terms in [ASSETS.md](ASSETS.md). Third-party software is listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+The library, demo source, and Skill are released under the [MIT License](LICENSE). Demo and README media have separate terms in [ASSETS.md](ASSETS.md). Third-party software is listed in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

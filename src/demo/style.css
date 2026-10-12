@@ -50,7 +50,6 @@ button { color: inherit; }
 
 .credit a { color: #4d4944; text-underline-offset: 3px; }
 .credit a:hover { color: #a33b28; }
-.credit span { margin: 0 .55em; color: #aaa59e; }
 .actions { display: flex; align-items: center; justify-self: end; gap: clamp(18px, 2.8vw, 38px); }
 
 .text-action {

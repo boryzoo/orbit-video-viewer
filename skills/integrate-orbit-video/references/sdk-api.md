@@ -11,9 +11,9 @@ pnpm add orbit-video-viewer
 Local SDK repository:
 
 ```bash
-pnpm --dir /absolute/path/to/orbit-panel-viewer install
-pnpm --dir /absolute/path/to/orbit-panel-viewer build:library
-pnpm add /absolute/path/to/orbit-panel-viewer
+pnpm --dir /absolute/path/to/orbit-video-viewer install
+pnpm --dir /absolute/path/to/orbit-video-viewer build:library
+pnpm add /absolute/path/to/orbit-video-viewer
 ```
 
 Use the host project's package manager when it is not pnpm.
