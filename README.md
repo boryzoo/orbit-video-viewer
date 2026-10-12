@@ -16,6 +16,8 @@
 
 Orbit Video Viewer is a small browser library for interactive product views, game items, characters, exhibits, comics, and other experiences that need controllable viewpoints.
 
+> **Technique origin:** The interaction approach was inspired by public work shared by [monoradio (@monoradio102)](https://x.com/monoradio102). This repository is an independent implementation.
+
 ## Live Demo
 
 Open the public [Orbit Comic demo on Hugging Face Spaces](https://huggingface.co/spaces/BreadStudio/orbit-video-viewer), wait for the artwork to load, then drag horizontally across it.

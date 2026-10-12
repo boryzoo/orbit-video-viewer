@@ -16,6 +16,8 @@
 
 Orbit Video Viewer 是一个小型浏览器组件，可用于商品展示、游戏道具、角色、展览、互动漫画以及其他需要控制观察视角的网页体验。
 
+> **技术来源：** 本项目的交互技术路线受到 [monoradio（@monoradio102）](https://x.com/monoradio102) 公开作品的启发，代码为独立实现。
+
 ## 在线体验
 
 打开 Hugging Face Spaces 上公开的 [Orbit Comic 演示](https://huggingface.co/spaces/BreadStudio/orbit-video-viewer)，等待画面加载完成，然后在画面上左右拖动。
