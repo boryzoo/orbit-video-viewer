@@ -51,6 +51,8 @@ Audio is ignored. No preprocessing tool is included in this release.
 
 These images illustrate possible uses; they are not separate applications included in the repository.
 
+## How to Use
+
 ### Use it with an AI coding agent
 
 Give a compatible AI coding agent these three things:
