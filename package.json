@@ -1,0 +1,59 @@
+{
+  "name": "orbit-video-viewer",
+  "version": "0.1.0",
+  "description": "A browser library for turning pre-generated orbit videos into controllable visual interactions.",
+  "homepage": "https://github.com/boryzoo/orbit-video-viewer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boryzoo/orbit-video-viewer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/boryzoo/orbit-video-viewer/issues"
+  },
+  "module": "./dist/library/orbit-viewer.js",
+  "types": "./dist/types/library/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/library/index.d.ts",
+      "import": "./dist/library/orbit-viewer.js"
+    }
+  },
+  "files": [
+    "dist/library",
+    "dist/types",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "pnpm run build:demo && pnpm run build:library",
+    "build:demo": "tsc -b && vite build",
+    "build:library": "vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json",
+    "prepack": "pnpm run build:library",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "vitest run",
+    "test:integration": "pnpm run build && pnpm --dir examples/basic-integration build",
+    "check:release": "pnpm test && pnpm run test:integration && pnpm pack --dry-run"
+  },
+  "keywords": ["orbit", "video", "viewer", "interaction", "canvas"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "packageManager": "pnpm@11.16.0",
+  "type": "module",
+  "dependencies": {
+    "mp4box": "^2.4.1"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.3"
+  }
+}

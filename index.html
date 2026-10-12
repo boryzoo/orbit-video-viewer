@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An interactive comic panel you can rotate by hand." />
+    <meta name="theme-color" content="#efede8" />
+    <title>Orbit Comic</title>
+  </head>
+  <body>
+    <main class="site-shell">
+      <header class="topbar">
+        <div class="wordmark" aria-label="Orbit Comic"><span>Orbit</span><span>Comic</span></div>
+        <p class="credit">
+          Technique learned from a Claude Artifact shared by
+          <a href="https://x.com/monoradio102" target="_blank" rel="noreferrer">monoradio</a>
+          <span aria-hidden="true">·</span> Built with Codex
+        </p>
+        <nav class="actions" aria-label="Viewer controls">
+          <button id="reset" class="text-action" type="button" aria-label="Return to the original view" disabled>Reset view</button>
+        </nav>
+      </header>
+
+      <section class="artwork" aria-labelledby="artwork-title">
+        <div id="stage" class="stage is-loading" tabindex="0" role="application" aria-label="Interactive rotating comic panel">
+          <img id="poster" class="poster" src="./demo/poster.png" alt="A figure and motorcycle in a desert landscape" />
+          <canvas id="canvas" aria-hidden="true"></canvas>
+          <div id="loading" class="loading-state" aria-live="polite">
+            <div class="loading-copy"><span id="phase">Loading</span><span id="progress-label">0%</span></div>
+            <div class="progress-track" aria-hidden="true"><span id="progress"></span></div>
+          </div>
+          <div id="drag-hint" class="drag-hint" hidden>
+            <span class="drag-line"></span><span>Drag to rotate</span><span class="drag-line"></span>
+          </div>
+        </div>
+
+        <footer class="caption">
+          <h1 id="artwork-title">Desert Standoff</h1>
+          <div class="caption-meta">
+            <span id="source-label" class="source-label">Panel 01</span>
+            <label class="text-action file-action">Change video<input id="video-input" type="file" accept="video/mp4,video/*" /></label>
+          </div>
+        </footer>
+        <p id="status" class="sr-only" aria-live="polite">Loading artwork.</p>
+      </section>
+    </main>
+    <script type="module" src="/src/demo/main.ts"></script>
+  </body>
+</html>

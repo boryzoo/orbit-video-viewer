@@ -1,0 +1,5 @@
+interface:
+  display_name: "Integrate Orbit Video"
+  short_description: "Add drag-controlled orbit video to an existing app"
+  brand_color: "#C84A34"
+  default_prompt: "Use $integrate-orbit-video to add my orbit MP4 to this project without changing its existing visual style."

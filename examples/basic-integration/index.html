@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orbit Viewer integration test</title>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Independent integration</p>
+      <h1>Product inspector</h1>
+      <div id="viewer" tabindex="0" aria-label="Rotatable product view"></div>
+      <div class="controls">
+        <button data-angle="0">Front</button>
+        <button data-angle="90">Side</button>
+        <button data-angle="180">Back</button>
+        <button id="reset">Reset</button>
+        <output id="angle">Loading…</output>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
